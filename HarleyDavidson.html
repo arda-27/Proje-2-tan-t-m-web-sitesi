@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+ 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  
+<script>$(function() {
+  
+  var link = $('#navbar a.dot');
+  
+//   upper label id
+  var id =  $(this).attr('id');
+
+  // Move to specific section when click on menu link
+  link.on('click', function(e) {
+    var target = $($(this).attr('href'));
+    $('html, body').animate({
+      scrollTop: target.offset().top
+    }, 600);
+    
+//     upper label remove class
+    $('.comman').removeClass('active');
+    
+    $(this).addClass('active');
+//    label add
+  $('.'+id).addClass('active');
+   
+ 
+    e.preventDefault();
+  });
+  
+  // Run the scrNav when scroll
+  $(window).on('scroll', function(){
+    scrNav();
+  });
+  
+  // scrNav function 
+  // Change active dot according to the active section in the window
+  function scrNav() {
+    var sTop = $(window).scrollTop();
+    $('section').each(function() {
+      var id = $(this).attr('id'),
+          offset = $(this).offset().top-1,
+          height = $(this).height();
+      if(sTop >= offset && sTop < offset + height) {
+        link.removeClass('active');
+        $('#navbar').find('[data-scroll="' + id + '"]').addClass('active');
+      }
+    });
+  }
+  scrNav();
+});</script>
+<style>* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+p {
+  color: #565656;
+  line-height: 1.8;
+}
+.section {
+  min-height: 550px;
+}
+.container {
+  width: 1170px;
+  max-width: 90%;
+  margin: 0 auto;
+  height: 700px;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.content-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  display: table;
+  min-height: 80px;
+}
+.content {
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+/* End Global Styles */
+
+/* Start Nav Styles */
+.navbar {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.navbar .nav-menu li {
+  position: relative;
+  min-width: 200px;
+  text-align: right;
+}
+.navbar .nav-menu li .dot {
+  display: block;
+  color: #fff;
+  padding: 5px 0;
+}
+.navbar .nav-menu li .dot::before,
+.navbar .nav-menu li .dot::after {
+  display: block;
+  position: absolute;
+  content: '';
+  border-radius: 50%;  
+  top: 50%;  
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot::before {
+  width: 5px;
+  height: 5px;
+  right: 0;
+  border: 2px solid #000;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu li .dot::after {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgb(110, 110, 110);
+  right: -5px;
+  transform: translateY(-50%) scale(0);
+}
+.navbar .nav-menu li .dot.active::before,
+.navbar .nav-menu li:hover .dot::before {
+  background: #f44336;
+  border-color: #060000;
+}
+.navbar .nav-menu li .dot.active::after,
+.navbar .nav-menu li:hover .dot::after {
+  transform: translateY(-50%) scale(1);  
+}
+.navbar .nav-menu li .dot span {
+  display: inline-block;
+  opacity: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: capitalize;
+  background-color: #040000;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-right: 30px;
+  transform: translateX(20px);
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot span::before {
+  display: block;
+  position: absolute;
+  content: '';
+  border-left: 7px solid #939393;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  top: 50%;
+  transform: translate(7px, -50%);
+  right: 0;
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot.active span,
+.navbar .nav-menu li:hover .dot span {
+  transform: translateX(0px);
+  opacity: 1;
+}
+/* End Nav Styles */
+
+/* Start Home Styles */
+#home {
+  background-color: #fff;
+}
+#home button {
+  border: 2px solid #fe0000;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 25px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  transition: all .3s ease;
+  margin-top: 20px;
+}
+#home button:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+/* End Home Styles */
+
+/* Start About Styles */
+#about .container {
+  padding: 100px 0;
+}
+#about p {
+  width: 60%;
+  margin: 10px auto;
+}
+#about img {
+  margin-top: 40px;
+}
+/* End About Styles */
+
+/* Start Services Styles */
+#services {
+  background-color: #fff;
+}
+#services .services {
+  margin: 40px auto;
+}
+#services .services .service {
+  width: 50%;
+  padding: 1%;
+}
+
+#services .text-right {
+  float: right;
+}
+#services .text-left {
+  float: left;
+}
+/* End Services Styles */
+
+/* Start Testimonials Styles */
+#test,
+#test .content-wrapper {
+  min-height: 400px;
+}
+/* End Testimonials Styles */
+
+.nav-label{margin-bottom:10px; text-align:right; color:#000; font-weight:700; display:none;}
+
+.nav-label.active{display:block;}
+
+/* Start Contact Styles */
+#contact {
+  min-height: 600px;
+  background-color: #222;
+  color: #fff;
+}
+#contact .content-wrapper {
+  min-height: 600px;
+}
+#contact p {
+  color: #eee
+}
+#contact .mail {
+  font-size: 30px;
+  margin-top: 40px;
+}
+/* End Contact Styles */
+
+/* Start Footer Styles */
+footer {
+  background-color: #000;
+  padding: 40px 0;
+}
+footer p {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: .5px;
+  font-weight: 700;
+
+
+    
+    color: #161618;
+    background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+  }
+  .wrapper {
+
+      width: 600px;
+      height: 370px; 
+
+
+  }
+  
+  #slide {
+      position: absolute;
+      left: -1600px;
+      width: 600px;
+      height: 370px;
+      margin-left: 300px;
+      -webkit-animation: slide 0.2s forwards;
+      -webkit-animation-delay: 1s;
+      animation: slide 0.2s forwards;
+      animation-delay: 1s;
+  }
+  
+  @-webkit-keyframes slide {
+      100% { left: 0; }
+  }
+  
+  @keyframes slide {
+      100% { left: 0; }
+  }
+
+  body {
+
+color: #161618;
+background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+}
+.resim {
+
+  width: 600px;
+  height: 370px; 
+
+
+}
+
+#fotoğraf {
+  position: absolute;
+  left: -1600px;
+  width: 600px;
+  height: 370px;
+  margin-left: 300px;
+  -webkit-animation: slide 0.2s forwards;
+  -webkit-animation-delay: 1s;
+  animation: slide 0.2s forwards;
+  animation-delay: 1s;
+}
+
+@-webkit-keyframes resim {
+  100% { left: 0; }
+}
+
+@keyframes resim {
+  100% { left: 0; }
+}
+
+
+</style>
+
+</head>
+<body>
+  
+
+
+
+<!-- Start Nav Section -->
+<nav id="navbar" class="navbar">
+
+   
+        <p class="nav-label comman dassess" style="top: -20px;">Services</p> 
+
+    
+  
+  <ul class="nav-menu">
+    <li>
+      <a data-scroll="home" href="#home" id="dintro" class="dot active">
+        <span>Paragraf 1</span>
+      </a>
+    </li>
+   
+    <li>
+      <a data-scroll="services" href="#services" id="dassess" class="dot">
+        <span>Paragraf 2</span>
+      </a>
+    </li>
+  
+ 
+  </ul>
+</nav>
+<!-- End Nav Section -->
+
+<!-- Start Home Section -->
+<section id="home" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div style="margin-top: -0px;">
+        <center><p><h1>Harley Davidson</h1></p></center>
+    
+        <br>
+        
+    
+        <div class="wrapper">
+            
+            <p<div style="margin-left: 500px;margin-top: 1px;text-align: justify;font-weight:400;" id="slide">
+    
+              Arthur Davidson, motor üzerine okuyan çocukluk arkadaşı Ole Evinrude ile bir demiryolu atölyesinde kalıpçı olarak çalışıyordu. Ole Evinrude, arkadaşlarına motorlardaki karbüratör ve yağlama konularında yardımcı oldu.Orjinal üretim yeri Davidson ailesinin bodrumuydu fakat sonrasında babaları arka bahçeye 3m x 5m boyutunda bir kulübe yaptı. Arthur'un kardeşi Janet, amcasının dükkanında ince nevresimler için monogramlar tasarlayan yetenekli bir sanatçıydı. Yapılan kulübenin kapısına efsaneleşmiş "Harley-Davidson Motor Co." yazısını yazdı. Aynı zamanda gri yakıt depolarına tasarladığı kırmızı logoyu yapıyordu. İlk motosiklet çizgilerini de eli ile boyadı. 
+              Arthur, Kansas'da makinist olan kardeşi Walter'ı işe aldı. Diğer bir kardeş William Davidson da şirkete 1907'de katıldı.
+  <br>
+  <br>
+              Arı yetiştiriciliği yapan 80 yaşındaki amca James Maclay, bütün birikimini şirkete bağışladı. Arthur'un kardeşi Elizabeth Davidson şirket için muhasebecilik yaptı ve sonunda şirket onun üniversiteye gitmesini sağladı.
+              <br>
+              <br>
+              1900'lü yıllarda elektrikli üretim araçları küçük parçalar için mevcut değildi. Bu sebeple bazı parçalar büyük benzinli makinelerde üretilirken bazıları ise demiryolu atölyelerinde gizlice bir araya getiriliyordu.
+              <br>
+              <br>
+              William Harley ve Arthur Davidson, otomobil almaya parası yetmeyen insanlar için at yerine kullanabilecekleri tek silindirli motosikletler üretmeye başladı. 
+          </p>
+              
+            </p>
+        </div>
+        </div>
+        
+        <div class="col-12 col-md-8 ">
+          <img style="height: 180px;width:300px;margin-left: -450px;margin-top: -580px;" src="./src/Harley1.jpg">
+      </div>
+      <div class="col-12 col-md-8 ">
+          <img style="height: 180px;width:300px;margin-left: -450px;margin-top: -150px;" src="./src/harley5.jpg">
+      </div>
+        </div>
+          </div>
+    </div>  
+  </div>
+</section>
+<!-- End Home Section -->
+
+
+
+<!-- Start Services Section -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div class="resim">
+            
+<div style="margin-top: 50px;">
+
+          <p<div style="margin-left: 200px;margin-top: 20px;font-weight:400;text-align: justify;" id="fotoğraf">
+          
+
+           
+            <big><h3>İlk Harley Davidson Motosiklet: Serial Number 1</h3></big>
+                
+                
+            Hiç vakit geçirmeden dairesel şasi diye tanımladıkları şasi ve motorun geliştirilmesine başlandı. Böylece arka tekerleklere çok daha fazla güç aktarılacak ve hedeflenen güce ulaşılabilecekti. Motor teknolojilerinin öncülerinden, yetenekli bir mühendis olan Ole Evinrude bu yeni motorun tasarımında kendilerine oldukça yardım etmektedir. Yeni motorun tasarımı kısa sürede bitirilir. Çalışmaların karşılığı alınmış ve bu sefer başarmışlardır. Arşivlere 'Serial Number 1' adıyla geçen bu motosiklet, Harley Davidson'ın doğrudan satış için ürettiği ilk motosiklettir. İlk 'Serial Number 1' motosiklet, Harley Davidson merkez binasının lobisinde halen daha ziyaretçilerini beklemektedir.
+
+            <br>
+            <br>
+            1904 yılında ilk Harley Davidson satış mağazası Chicago'da açılır. 1908 yılında Walter Davidson'ın Catskill Dağlarından başlayıp Brooklyn'de biten iki günlük dayanıklılık yarışındaki şampiyonluğu ve bir litre ile 86 km giden Harley'i, makinenin sağlamlığını ve verimliliğini kanıtladı.
+
+İlk 45 derecelik V-çift silindirli motor 1909'da sunuldu. 1914 yılında şirket yılda 1.600 motosiklet üretiyordu.
+
+1916'da General "Blackjack" Pershing, Meksikalı devrimci Pancho Villa'nın baskın ordularına karşı koymak için yan sepetine makineli tüfek monteli Harley-Davidson'lar sipariş etti. Diğer yıl ise Amerika, Birinci Dünya Savaşına girdi ve tüm atlı süvariler at yerine 20.000 adet Harley'e binmeye başladı.
+<br>
+<br>
+Bu seneler içerisinde Harley Davidson büyüdü ve bölündü. Artık iki yakın arkadaş olan Harley ve Davidson ile Davidson’ın kardeşi dışında bir ortağı daha bulunan, toplam dört kişi tarafından yönetilen anonim bir şirket haline gelmişti.
+
+Sıra üretim konusunda da işlerin hızlandırılmasına geldiğinde, merkezi ABD’nin Milwaukee eyaletinde bulunan bir fabrika daha kuruldu. Ayrıca ABD’nin New England eyaletine yeni bir ofis daha açıldı. Bunların dışında ise ilk motosiklet kataloğu üretildi ve ‘’Silent Gray Fellow’’ lakabı ilk kez bu senelerde kullanıldı.
+
+
+</p>
+</div>
+
+</div>
+ 
+ 
+
+<div class="col-12 col-md-8 ">
+  <img style="height: 150px;width:300px;margin-left: 800px;margin-top: -480px;" src="./src/harley2.jpg">
+  <img style="height: 150px;width:300px;margin-left: 800px;margin-top: -130px;" src="./src/harley3.jpg">
+  <img style="height: 150px;width:300px;margin-left: 800px;margin-top: 50px;" src="./src/hhh.jpg">
+
+</div>
+
+      </div>
+    </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>  
+<!-- End Services Section -->
+
+
+
+<a style="display:scroll;position:fixed; bottom:-10px; right:20px; height: 50px; " href="#" title="Back to Top"><img src="https://2.bp.blogspot.com/-PWnljjLo4mo/ViYQDGuIWvI/AAAAAAAAOQM/z29v4LgC37E/s1600/top.gif" /></a>
+
+
+</body>
+</html>

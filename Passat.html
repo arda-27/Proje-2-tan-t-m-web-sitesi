@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+ 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  
+<script>$(function() {
+  
+  var link = $('#navbar a.dot');
+  
+//   upper label id
+  var id =  $(this).attr('id');
+
+  // Move to specific section when click on menu link
+  link.on('click', function(e) {
+    var target = $($(this).attr('href'));
+    $('html, body').animate({
+      scrollTop: target.offset().top
+    }, 600);
+    
+//     upper label remove class
+    $('.comman').removeClass('active');
+    
+    $(this).addClass('active');
+//    label add
+  $('.'+id).addClass('active');
+   
+ 
+    e.preventDefault();
+  });
+  
+  // Run the scrNav when scroll
+  $(window).on('scroll', function(){
+    scrNav();
+  });
+  
+  // scrNav function 
+  // Change active dot according to the active section in the window
+  function scrNav() {
+    var sTop = $(window).scrollTop();
+    $('section').each(function() {
+      var id = $(this).attr('id'),
+          offset = $(this).offset().top-1,
+          height = $(this).height();
+      if(sTop >= offset && sTop < offset + height) {
+        link.removeClass('active');
+        $('#navbar').find('[data-scroll="' + id + '"]').addClass('active');
+      }
+    });
+  }
+  scrNav();
+});</script>
+<style>* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+p {
+  color: #565656;
+  line-height: 1.8;
+}
+.section {
+  min-height: 550px;
+}
+.container {
+  width: 1170px;
+  max-width: 90%;
+  margin: 0 auto;
+  height: 700px;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.content-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  display: table;
+  min-height: 80px;
+}
+.content {
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+/* End Global Styles */
+
+/* Start Nav Styles */
+.navbar {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.navbar .nav-menu li {
+  position: relative;
+  min-width: 200px;
+  text-align: right;
+}
+.navbar .nav-menu li .dot {
+  display: block;
+  color: #fff;
+  padding: 5px 0;
+}
+.navbar .nav-menu li .dot::before,
+.navbar .nav-menu li .dot::after {
+  display: block;
+  position: absolute;
+  content: '';
+  border-radius: 50%;  
+  top: 50%;  
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot::before {
+  width: 5px;
+  height: 5px;
+  right: 0;
+  border: 2px solid #000;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu li .dot::after {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgb(110, 110, 110);
+  right: -5px;
+  transform: translateY(-50%) scale(0);
+}
+.navbar .nav-menu li .dot.active::before,
+.navbar .nav-menu li:hover .dot::before {
+  background: #f44336;
+  border-color: #060000;
+}
+.navbar .nav-menu li .dot.active::after,
+.navbar .nav-menu li:hover .dot::after {
+  transform: translateY(-50%) scale(1);  
+}
+.navbar .nav-menu li .dot span {
+  display: inline-block;
+  opacity: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: capitalize;
+  background-color: #040000;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-right: 30px;
+  transform: translateX(20px);
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot span::before {
+  display: block;
+  position: absolute;
+  content: '';
+  border-left: 7px solid #939393;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  top: 50%;
+  transform: translate(7px, -50%);
+  right: 0;
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot.active span,
+.navbar .nav-menu li:hover .dot span {
+  transform: translateX(0px);
+  opacity: 1;
+}
+/* End Nav Styles */
+
+/* Start Home Styles */
+#home {
+  background-color: #fff;
+}
+#home button {
+  border: 2px solid #fe0000;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 25px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  transition: all .3s ease;
+  margin-top: 20px;
+}
+#home button:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+/* End Home Styles */
+
+/* Start About Styles */
+#about .container {
+  padding: 100px 0;
+}
+#about p {
+  width: 60%;
+  margin: 10px auto;
+}
+#about img {
+  margin-top: 40px;
+}
+/* End About Styles */
+
+/* Start Services Styles */
+#services {
+  background-color: #fff;
+}
+#services .services {
+  margin: 40px auto;
+}
+#services .services .service {
+  width: 50%;
+  padding: 1%;
+}
+
+#services .text-right {
+  float: right;
+}
+#services .text-left {
+  float: left;
+}
+/* End Services Styles */
+
+/* Start Testimonials Styles */
+#test,
+#test .content-wrapper {
+  min-height: 400px;
+}
+/* End Testimonials Styles */
+
+.nav-label{margin-bottom:10px; text-align:right; color:#000; font-weight:700; display:none;}
+
+.nav-label.active{display:block;}
+
+/* Start Contact Styles */
+#contact {
+  min-height: 600px;
+  background-color: #222;
+  color: #fff;
+}
+#contact .content-wrapper {
+  min-height: 600px;
+}
+#contact p {
+  color: #eee
+}
+#contact .mail {
+  font-size: 30px;
+  margin-top: 40px;
+}
+/* End Contact Styles */
+
+/* Start Footer Styles */
+footer {
+  background-color: #000;
+  padding: 40px 0;
+}
+footer p {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: .5px;
+  font-weight: 700;
+
+
+    
+    color: #161618;
+    background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+  }
+  .wrapper {
+
+      width: 600px;
+      height: 370px; 
+
+
+  }
+  
+  #slide {
+      position: absolute;
+      left: -1600px;
+      width: 600px;
+      height: 370px;
+      margin-left: 300px;
+      -webkit-animation: slide 0.2s forwards;
+      -webkit-animation-delay: 1s;
+      animation: slide 0.2s forwards;
+      animation-delay: 1s;
+  }
+  
+  @-webkit-keyframes slide {
+      100% { left: 0; }
+  }
+  
+  @keyframes slide {
+      100% { left: 0; }
+  }
+
+  body {
+
+color: #161618;
+background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+}
+.resim {
+
+  width: 600px;
+  height: 370px; 
+
+
+}
+
+#fotoğraf {
+  position: absolute;
+  left: -1600px;
+  width: 600px;
+  height: 370px;
+  margin-left: 300px;
+  -webkit-animation: slide 0.2s forwards;
+  -webkit-animation-delay: 1s;
+  animation: slide 0.2s forwards;
+  animation-delay: 1s;
+}
+
+@-webkit-keyframes resim {
+  100% { left: 0; }
+}
+
+@keyframes resim {
+  100% { left: 0; }
+}
+
+
+</style>
+
+</head>
+<body>
+  
+
+
+
+<!-- Start Nav Section -->
+<nav id="navbar" class="navbar">
+
+   
+        <p class="nav-label comman dassess" style="top: -20px;">Services</p> 
+
+    
+  
+  <ul class="nav-menu">
+    <li>
+      <a data-scroll="home" href="#home" id="dintro" class="dot active">
+        <span>Paragraf 1</span>
+      </a>
+    </li>
+   
+    <li>
+      <a data-scroll="services" href="#services" id="dassess" class="dot">
+        <span>Paragraf 2</span>
+      </a>
+    </li>
+  
+ 
+  </ul>
+</nav>
+<!-- End Nav Section -->
+
+<!-- Start Home Section -->
+<section id="home" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div style="margin-top: -0px;">
+        <center><p><h1>Passat</h1></p></center>
+    
+        <br>
+        
+    
+        <div class="wrapper">
+            
+            <p<div style="margin-left: 500px;margin-top: 1px;text-align: justify;font-weight:400;" id="slide">
+    
+              Volkswagen Passat Volkswagen AG ("VW") tarafından 1967'den beri çeşitli formlarda üretilen bir aile arabasıdır. Passat, Volkswagen Golf/Jetta ile Volkswagen Phaeton arasında kalan bir model olup şu anda Almanya'da bulunan Emden ve Mosel/Zwickau fabrikalarında üretilmektedir. Avrupa ve Kuzey Amerika pazarlarında Passat olarak bilinen araç; başka bölgelerde Dasher, Santana, Quantum, Magotan, Corsar ve Carat isimleriyle de satılmıştır. Passat, Almanca'da Alize rüzgârları anlamına gelmektedir. 2025 veya 2026 yılında üretimi sonlandırılması beklenmektedir.[kaynak belirtilmeli]
+              <br>
+              <br>
+              
+                          Passat'ın ilk nesli kompakt sınıf/küçük aile arabası sınıfında olsa da Passat'ın ikinci nesli boyut olarak büyümüş ve Passat, orta sınıf/geniş aile arabası hâline gelmiştir.
+              <br>
+              <br>            
+                          Passat, bir sedan model olarak her zaman Volkswagen'in en önemli modelleri arasında olmuştur. Passat'ın 1973 yılındaki lansmanı; Beetle satışlarının azaldığı, arkadan motorlu, daha büyük ve hava soğutmalı Volkswagen Type 3 ve Volkswagen Type 4 (411 ve 412) modellerinin pazarda eski teknoloji kaldığı yıllara denk gelmektedir. Ancak Passat, diğer rakipleri gibi önden motorlu olarak üretilmeye devam edilmiştir.        
+                  <br>
+                  <br>
+                  1964 yılında Audi'yi satın alması ile Volkswagen, önden çekişli arabalar ve su soğutmalı motorlar gibi yeni araç teknolojileri geliştirme imkânına kavuştu. Bu sayede 1973'te Passat ve 1974'te Golf, yeni araçlar olarak üretilmeye başlandı. İlk Passat, Audi 80/Fox temeline dayanıyordu ve 2007 yılına kadar bu geçmişi paylaştı. Volkswagen Passat, 2015 yılında ilk kez "Yılın Otomobili" olmayı başarmıştır.(2015 Car of the Year30 Aralık 2010 tarihinde Wayback Machine sitesinde arşivlendi.) ödülünü aldı.[1]
+                  <br>
+                  <br>
+                          
+            
+            </p>
+        </div>
+        </div>
+        
+        <div class="col-12 col-md-8 ">
+          <img style="height: 250px;width:350px;margin-left: -500px;margin-top: -450px;" src="./src/Passat.png">
+      </div>
+        </div>
+          </div>
+    </div>  
+  </div>
+</section>
+<!-- End Home Section -->
+
+
+
+<!-- Start Services Section -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div class="resim">
+            
+<div style="margin-top: 50px;">
+
+          <p<div style="margin-left: 200px;margin-top: 20px;font-weight:400;text-align: justify;" id="fotoğraf">
+          
+
+           
+
+            İlk VW Passat'ın lansmanı 1967'de yapıldı. Passat'ın hem 2 hem 4 kapılı sedanlarla beraber, sedanlara benzeyen 3 ve 5 kapılı sürümleri de mevcuttu. Tüm kasalar, İtalyan tasarımcı Giorgetto Giugiaro'nun modern tasarımıyla şekillendirildi. Arka kısmı yatık bir spor araba olan bu tasarım, mekanik olarak Audi 80'e muadildi. Tüm Passat modellerinin birbirine benziyor olması alışıldık bir durum değildi. Passat'ın 5 kapılı station wagon modeli ise 1970'te piyasaya çıkartıldı. Passat, Audi 80'in bir türeviydi ama Audi tasarımı daha konservatif çizgilere sahip olduğundan Passat ile Audi 80 farklı araçlar olarak algılandılar. Avrupa'da Passat modele göre 2 kare ve 2 yuvarlak 7" farlar veya 4 yuvarlak 5,5" farlar ile imal ediliyordu.
+            <br>
+            <br>
+                            Passat, zamanında en modern aile arabaları arasında bulunurken aynı zamanda Volkswagen Type 3 ve Type 4 modellerinin yerine geçmişti. 1976 yılında Wheels magazine tarafından yılın arabası seçilmiştir. Audi 80 1 yıl önce aynı ödüle layık görülürken platformun adı artık Volkswagen B platformu olmuştur.
+                <br>
+                <br>            
+                            Passat 4 silindir çeşitleri olarak 1.3 lt, 1.5 lt, ve 1.6 lt benzinli motor seçeneklerine sahipti. Bu motorlar aynı zamanda Audi 80'de önden çekişli olarak kullanılırken, bir Audi klasiği olan 4-ileri manuel şanzıman veya 3-ileri otomatik şanzımanlı olarak satılıyordu.
+                    <br>
+                    <br>
+                 
+            
+            Üstten tek egzantrikli 1.5 lt motor 75 PS üretiyordu ve 1985'te 1.6 lt olarak kullanılmaya başlandı. Büyüyen motor ile emisyon oranları aşağıya çekildi ancak güç üretimi 70 PS oldu. 1976 yılında Bosch'un geliştirdiği enjeksiyon sistemi ile donatılan 1.6 lt'lik model, 78 PS güç üretiyordu.
+                    
+            
+  
+</p>
+</div>
+
+</div>
+ 
+ 
+
+<div class="col-12 col-md-8 ">
+  <img style="height: 300px;width:400px;margin-left: 750px;margin-top: -500px;" src="./src/Passat1.jpg">
+
+</div>
+</div>
+    </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>  
+<!-- End Services Section -->
+
+
+
+<a style="display:scroll;position:fixed; bottom:-10px; right:20px; height: 50px; " href="#" title="Back to Top"><img src="https://2.bp.blogspot.com/-PWnljjLo4mo/ViYQDGuIWvI/AAAAAAAAOQM/z29v4LgC37E/s1600/top.gif" /></a>
+
+
+</body>
+</html>

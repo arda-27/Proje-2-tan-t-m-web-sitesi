@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+ 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  
+<script>$(function() {
+  
+  var link = $('#navbar a.dot');
+  
+//   upper label id
+  var id =  $(this).attr('id');
+
+  // Move to specific section when click on menu link
+  link.on('click', function(e) {
+    var target = $($(this).attr('href'));
+    $('html, body').animate({
+      scrollTop: target.offset().top
+    }, 600);
+    
+//     upper label remove class
+    $('.comman').removeClass('active');
+    
+    $(this).addClass('active');
+//    label add
+  $('.'+id).addClass('active');
+   
+ 
+    e.preventDefault();
+  });
+  
+  // Run the scrNav when scroll
+  $(window).on('scroll', function(){
+    scrNav();
+  });
+  
+  // scrNav function 
+  // Change active dot according to the active section in the window
+  function scrNav() {
+    var sTop = $(window).scrollTop();
+    $('section').each(function() {
+      var id = $(this).attr('id'),
+          offset = $(this).offset().top-1,
+          height = $(this).height();
+      if(sTop >= offset && sTop < offset + height) {
+        link.removeClass('active');
+        $('#navbar').find('[data-scroll="' + id + '"]').addClass('active');
+      }
+    });
+  }
+  scrNav();
+});</script>
+<style>* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+p {
+  color: #565656;
+  line-height: 1.8;
+}
+.section {
+  min-height: 700px;
+}
+.container {
+  width: 1170px;
+  max-width: 90%;
+  margin: 0 auto;
+  height: 550px;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.content-wrapper {
+  width: 80%;
+  margin: 0 auto;
+  display: table;
+  min-height: 80px;
+}
+.content {
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+}
+/* End Global Styles */
+
+/* Start Nav Styles */
+.navbar {
+  position: fixed;
+  z-index: 999;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.navbar .nav-menu li {
+  position: relative;
+  min-width: 200px;
+  text-align: right;
+}
+.navbar .nav-menu li .dot {
+  display: block;
+  color: #fff;
+  padding: 5px 0;
+}
+.navbar .nav-menu li .dot::before,
+.navbar .nav-menu li .dot::after {
+  display: block;
+  position: absolute;
+  content: '';
+  border-radius: 50%;  
+  top: 50%;  
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot::before {
+  width: 5px;
+  height: 5px;
+  right: 0;
+  border: 2px solid #000;
+  transform: translateY(-50%);
+}
+.navbar .nav-menu li .dot::after {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgb(110, 110, 110);
+  right: -5px;
+  transform: translateY(-50%) scale(0);
+}
+.navbar .nav-menu li .dot.active::before,
+.navbar .nav-menu li:hover .dot::before {
+  background: #f44336;
+  border-color: #060000;
+}
+.navbar .nav-menu li .dot.active::after,
+.navbar .nav-menu li:hover .dot::after {
+  transform: translateY(-50%) scale(1);  
+}
+.navbar .nav-menu li .dot span {
+  display: inline-block;
+  opacity: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: capitalize;
+  background-color: #040000;
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-right: 30px;
+  transform: translateX(20px);
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot span::before {
+  display: block;
+  position: absolute;
+  content: '';
+  border-left: 7px solid #939393;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  top: 50%;
+  transform: translate(7px, -50%);
+  right: 0;
+  transition: all .3s ease;
+}
+.navbar .nav-menu li .dot.active span,
+.navbar .nav-menu li:hover .dot span {
+  transform: translateX(0px);
+  opacity: 1;
+}
+/* End Nav Styles */
+
+/* Start Home Styles */
+#home {
+  background-color: #fff;
+}
+#home button {
+  border: 2px solid #fe0000;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  padding: 12px 25px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  transition: all .3s ease;
+  margin-top: 20px;
+}
+#home button:hover {
+  background-color: #ffc107;
+  color: #fff;
+}
+/* End Home Styles */
+
+/* Start About Styles */
+#about .container {
+  padding: 100px 0;
+}
+#about p {
+  width: 60%;
+  margin: 10px auto;
+}
+#about img {
+  margin-top: 40px;
+}
+/* End About Styles */
+
+/* Start Services Styles */
+#services {
+  background-color: #fff;
+}
+#services .services {
+  margin: 40px auto;
+}
+#services .services .service {
+  width: 50%;
+  padding: 1%;
+}
+
+#services .text-right {
+  float: right;
+}
+#services .text-left {
+  float: left;
+}
+/* End Services Styles */
+
+/* Start Testimonials Styles */
+#test,
+#test .content-wrapper {
+  min-height: 400px;
+}
+/* End Testimonials Styles */
+
+.nav-label{margin-bottom:10px; text-align:right; color:#000; font-weight:700; display:none;}
+
+.nav-label.active{display:block;}
+
+/* Start Contact Styles */
+#contact {
+  min-height: 600px;
+  background-color: #222;
+  color: #fff;
+}
+#contact .content-wrapper {
+  min-height: 600px;
+}
+#contact p {
+  color: #eee
+}
+#contact .mail {
+  font-size: 30px;
+  margin-top: 40px;
+}
+/* End Contact Styles */
+
+/* Start Footer Styles */
+footer {
+  background-color: #000;
+  padding: 40px 0;
+}
+footer p {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: .5px;
+  font-weight: 700;
+
+
+    
+    color: #161618;
+    background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+  }
+  .wrapper {
+
+      width: 600px;
+      height: 370px; 
+
+
+  }
+  
+  #slide {
+      position: absolute;
+      left: -1600px;
+      width: 600px;
+      height: 370px;
+      margin-left: 300px;
+      -webkit-animation: slide 0.2s forwards;
+      -webkit-animation-delay: 1s;
+      animation: slide 0.2s forwards;
+      animation-delay: 1s;
+  }
+  
+  @-webkit-keyframes slide {
+      100% { left: 0; }
+  }
+  
+  @keyframes slide {
+      100% { left: 0; }
+  }
+
+  body {
+
+color: #161618;
+background-image:rgb(228, 15, 15);
+background-repeat: repeat;
+margin: 0px;
+padding: 0px;
+}
+.resim {
+
+  width: 600px;
+  height: 370px; 
+
+
+}
+
+#fotoğraf {
+  position: absolute;
+  left: -1600px;
+  width: 600px;
+  height: 370px;
+  margin-left: 300px;
+  -webkit-animation: slide 0.2s forwards;
+  -webkit-animation-delay: 1s;
+  animation: slide 0.2s forwards;
+  animation-delay: 1s;
+}
+
+@-webkit-keyframes resim {
+  100% { left: 0; }
+}
+
+@keyframes resim {
+  100% { left: 0; }
+}
+
+
+</style>
+
+</head>
+<body>
+  
+
+
+
+<!-- Start Nav Section -->
+<nav id="navbar" class="navbar">
+
+   
+        <p class="nav-label comman dassess" style="top: -20px;">Services</p> 
+
+    
+  
+  <ul class="nav-menu">
+    <li>
+      <a data-scroll="home" href="#home" id="dintro" class="dot active">
+        <span>Paragraf 1</span>
+      </a>
+    </li>
+   
+    <li>
+      <a data-scroll="services" href="#services" id="dassess" class="dot">
+        <span>Paragraf 2</span>
+      </a>
+    </li>
+  
+ 
+  </ul>
+</nav>
+<!-- End Nav Section -->
+
+<!-- Start Home Section -->
+<section id="home" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div style="margin-top: -0px;">
+        <center><p><h1>Vapur</h1></p></center>
+    
+        <br>
+        
+    
+        <div class="wrapper">
+            
+            <p<div style="margin-left: 500px;margin-top: 1px;text-align: justify;font-weight:400;" id="slide">
+    
+              İstanbul Büyükşehir Belediyesi'nin Şehir Hatları filosuna kattığı üç yeni vapur tartışma konusu oldu. Geçtiğimiz yıllardakinin aksine İstanbullulara sorulmadan yaptırılan ve hizmete sokulan vapurların biçimleri beğenilmedi. Şehir Hatları vapurlarının, İstanbul imgesi ile bütünleşen klasik biçiminden hiçbir iz taşımayan vapurlara sosyal medyada tepki gösterildi.            
+            <br>
+            <br>
+            İstanbul Büyükşehir Belediyesi'nin, "3 adet çift yönlü yanaşma sistemli, engelli erişimine uygun, en son teknolojik donanımlara sahip, konforlu" diye duyurduğu Durusu, Göksu ve Küçüksu hizmete girdi.
+            
+            <br>
+            <br>
+            
+            Gemilerin engelli vatandaşların kolay bir şekilde binmeleri için özel olarak tasarlandığı, içinde hayvan barınaklarının bulunduğu, bebek bakım odası, led ekranlar, mevsim şartlarına göre ısıtma ve soğutma sistemleri, akıllı cihazlar için şarj noktaları gibi günün ihtiyaçlarını karşılayan her türlü ayrıntıya sahip olduğu duyuruldu.
+            
+            <br>
+            <br>
+            Üstelik bu 3 gemi İstanbul Boğazı'nın güçlü akıntısı ve ters rüzgarlarına karşı da güçlü manevra kabiliyetine sahipti. Ancak İstanbullular bu vapurları beğenmedi. Çünkü İstanbul Boğazı'nın ayrılmaz bir parçası olan vapurlar yaklaşık 190 yıldır belirgin bir çizgi ve biçim kazandılar ve o biçimleriyle de nesillerin zihinlerine, estetik algılarına, tablolara, film karelerine, milyonlarca fotoğrafa vs kazındılar. Hizmete giren vapurlar ise bu çizginin çok dışına düşen bir tasarıma sahip.
+            <br>
+            <br>
+            Peki İstanbul'da vapurların tarihi ne? İstanbul Boğazı'nda ilk vapur 1827’de satın alınarak işletilmeye başlanan buharlı gemiydi. II. Mahmut döneminde Tersane-i Amire tarafından satın alınan, İngiliz Kaptan Kelly’nin yönetimindeki Swift adlı bu vapur, halk arasında Buğ Gemisi adıyla anıldı.            
+            
+            </p>
+        </div>
+        </div>
+        
+        <div class="col-12 col-md-8 ">
+          <img style="height: 250px;width:400px;margin-left: -500px;margin-top: -500px;" src="./src/Vapur.jpg">   
+      </div>
+      <div class="col-12 col-md-8 ">
+          <img style="height: 235px;width:400px;margin-left: -500px;margin-top: -100px;" src="./src/vap1.jpg">
+      </div>
+  </div>
+          </div>
+    </div>  
+  </div>
+</section>
+<!-- End Home Section -->
+
+
+
+<!-- Start Services Section -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="content-wrapper text-center">
+      <div class="content">
+        <div class="resim">
+            
+<div style="margin-top: 50px;">
+
+          <p<div style="margin-left: 200px;margin-top: 20px;font-weight:400;text-align: justify;" id="fotoğraf">
+          
+
+           
+
+            İstanbul'un mesiresi Boğaziçi köylerinin ulaşım talebini artırmasıyla, 1837'de kapitülasyonlardan yararlanan biri İngiliz, öteki Rus iki şirket, 2 vapurla hizmete girdi. Ancak Osmanlı idaresi kısa bir süre sonra bu vapurların çalışmasını yasakladı.            <br>
+            <br>
+            Bu kez artan gereksinimi gidermek üzere harekete geçen Tersane-i Amire, 1838'de Mesir-i Bahri ve Eser-i Hayır adlı vapurları hizmete soktu ve bunlardan biri İstanbul’da, diğeri ise Marmara Denizi’nde İstanbul, Bandırma, İzmit ve Tekirdağ arasında işlemeye başladı.
+            <br>
+        <br>
+        Ayrıca dönemin deniz ulaşımından sorumlu Hazine-i Hassa Vapurları İdaresi de Hümapervaz adlı bir vapurla boğazda yolcu taşımacılığına girişti.          
+<br>
+<br>
+
+        Vapurlar kayıkların pabucunu dama atıp da talep yükselince 1851'de Abdülmecid döneminde Türkiye'de kurulan ilk anonim ortaklık olan Şirket-i Hayriye kuruldu ve şirket, İngiltere'den satın aldığı yandan çarklı 6 gemi ile Boğaz'da yolcu ve yük taşımacılığına başladı.
+<br>
+<br>
+Şirket İstanbul'un günlük yaşamında 94 yıl boyunca vazgeçilmez bir yere sahip oldu. 1945'e kadar önceleri siyah boyalı, semaver bacalı, zarif yandan çarklıları, sonraları daha büyükçe, geniş salonlu, uskurlu vapurlarıyla Şirket-i Hayriye, boğazın iki yakasını birleştirdi, bugünkü Boğaziçi´nin gerçek mimarı oldu.
+
+<br>
+<br>
+Şirket-i Hayriye'nin 60 beygir gücünde, ahşap tekneli, yandan çarklı, saatte 5- 6 mil hız yapabilen; kaptan köşkleri ve ana güverteleri açık olan bu nedenle de kaptanlar ve yolcuların kış aylarında çok zorluk çektiği vapurlarının isimleri şöyleydi: 1 numaralı Rumeli, 2 numaralı Tarabya, 3 numaralı Göksu, 4 numaralı Beylerbeyi, 5 numaralı Tophane, 6 numaralı Beşiktaş.
+
+
+
+
+      </p>
+</div>
+
+</div>
+ 
+ 
+
+<div class="col-12 col-md-8 ">
+  <img style="height: 200px;width:380px;margin-left: 750px;margin-top: -520px;" src="./src/Vapur1.jpg">
+
+</div>
+<div class="col-12 col-md-8 ">
+  <img style="height: 200px;width:380px;margin-left: 750px;margin-top: -70px;" src="./src/vap.jpg">
+
+</div>
+</div>
+    </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>  
+<!-- End Services Section -->
+
+
+<a style="display:scroll;position:fixed; bottom:-10px; right:20px; height: 50px; " href="#" title="Back to Top"><img src="https://2.bp.blogspot.com/-PWnljjLo4mo/ViYQDGuIWvI/AAAAAAAAOQM/z29v4LgC37E/s1600/top.gif" /></a>
+
+
+
+</body>
+</html>
